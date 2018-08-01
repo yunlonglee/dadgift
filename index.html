@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"><meta http-equiv="content-language" content="zh-TW"><title>LUXJOY 精品購物網 - shop with style</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="stylesheet" href="css/app.css"><link rel="apple-touch-icon" href="https://www.luxjoy.com/theme/main/img/common/apple60.jpg"><link rel="apple-touch-icon" sizes="76x76" href="https://www.luxjoy.com//theme/main/img/common/apple76.jpg"><link rel="apple-touch-icon" sizes="120x120" href="https://www.luxjoy.com//theme/main/img/common/apple120.jpg"><link rel="apple-touch-icon" sizes="152x152" href="https://www.luxjoy.com//theme/main/img/common/apple152.jpg"></head><body ontouchstart=""><div id="wrapper"><main class="main dad_gift"><div class="banner_img"></div><div class="text-group"><div class="text-img">DAD's GIFT</div><h3>最適合老爸的禮物 ?</h3><h3>回答 5 個問題，我們替你挑！</h3><div class="question-btn"> 測驗開始</div></div><div class="scroll-animation"><p>測驗開始</p><div class="mouse-group"><div class="mouse1"></div><div class="mouse2"></div></div></div><div class="white-bg"><div class="question-group"><div class="question"><div class="title">01.<span>爸爸常穿的衣服顏色</span></div><ul><li class="next-question"> <div class="btn">A</div><p>藍 / 綠 / 粉色 / 亮色</p></li><li class="next-question"><div class="btn">B</div><p>黑 / 灰 / 白 / 深色</p></li></ul></div><div class="question"><div class="title">02.<span>爸爸平常的休閒</span></div><ul><li class="next-question"><div class="btn">A</div><p>運動 / 旅行 / 喜歡嘗試新的3C用品</p></li><li class="next-question"><div class="btn">B</div><p>拍攝 / 煮咖啡 / 閱讀 / 看電視</p></li></ul></div><div class="question"><div class="title">03.<span>爸爸的個性</span></div><ul><li class="next-question"><div class="btn">A</div><p>活潑 / 幽默</p></li><li class="next-question"><div class="btn">B</div><p>安靜 / 穩重</p></li></ul></div><div class="question"><div class="title">04.<span>爸爸的購物習慣</span></div><ul><li class="next-question"><div class="btn">A</div><p>時不時有很想買的單品 / 購物狂</p></li><li class="next-question"><div class="btn">B</div><p>交給媽媽處理 / 能省則省</p></li></ul></div><div class="question"><div class="title">05.<span>爸爸買東西的考量</span></div><ul><li class="final-question"><div class="btn">A</div><p class="pt-0">商品是否有質感 / 獨特有設計感 / 不喜歡跟別人用一樣的</p></li><li class="final-question"><div class="btn">B</div><p class="pt-0">輕便無負擔 / 機能實用 / 注重 CP 值</p></li></ul></div></div></div></main></div><script src="js/app.js"></script><script>$( document ).ready(function() {
+	$("body").css("overflow", "hidden");
+
+	var scrollOneTime = true
+	function desktopWheel (e) {
+		if (e.originalEvent.wheelDelta /120 < 0 && scrollOneTime) {
+			//- console.log("scrolling down !");
+			$(".banner_img, .text-group, .scroll-animation, .scroll-animation, .white-bg, .question-group").addClass("active")
+			scrollOneTime = false
+		}
+	}
+
+	var windowW = $(window).width()
+	if (windowW >= 1200){
+		$(".banner_img").on("mousewheel", desktopWheel)
+	} else {
+		$(".banner_img").off("mousewheel", desktopWheel)
+	}
+
+	// resize
+	$(window).on("resize", function () {
+		windowW = $(window).width()
+		if (windowW >= 1200){
+			$(".banner_img").on("mousewheel", desktopWheel)
+		} else {
+			$(".banner_img").off("mousewheel", desktopWheel)
+		}
+	})
+
+	// 手機按鈕
+	$(".question-btn").click(function() {
+		$(".banner_img, .text-group, .scroll-animation, .white-bg, .question-group").addClass("active")
+	})
+
+
+	// 題目
+	var answerA = 0
+	var answerB = 0
+	$(".next-question").click(function() {
+		var current_fs = $(this).parents(".question");
+		var next_fs = $(this).parents(".question").next();
+		current_fs.stop().fadeOut()
+		next_fs.stop().delay(600).fadeIn();
+
+		$(this).find(".btn").text() == "A" ? answerA ++ : answerB ++
+	})
+
+	$(".final-question").click(function() {
+		$(this).find(".btn").text() == "A" ? answerA ++ : answerB ++
+		if (answerA > answerB) {
+			console.log(answerA, answerB)
+			window.location.href = "/event-dad-gift-result-1.html"
+		} else {
+			console.log(answerA, answerB)
+			window.location.href = "/event-dad-gift-result-2.html"
+		}
+	})
+})</script></body></html>
